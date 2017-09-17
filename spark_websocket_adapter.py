@@ -20,7 +20,7 @@ def message_callback(ws, message):
         # First event received, should be our webhook url
         webhook_url = event.get('url').replace('12345', '8443')
         webhook_secret = event.get('secret')
-        sparkpy.Spark().create_webhook('Errbot webhook',
+        sparkpy.Spark().create_webhook('Python Websocket Proxy',
                                        webhook_url,
                                        'all', 'all',
                                        secret=webhook_secret)
@@ -35,7 +35,7 @@ def message_callback(ws, message):
 
 def disconnect_callback(ws):
     log.debug('Disconnecting... cleaning up Cisco Spark webhooks')
-    for hook in spark.webhooks.filtered(lambda x: x.name == 'Errbot webhook'):
+    for hook in spark.webhooks.filtered(lambda x: x.name == 'Python Websocket Proxy'):
         log.debug('Deleting webhook: %s', hook.id)
         hook.delete()
 
